@@ -47,7 +47,7 @@ In addition, the packages we are calling now is as follows:
 
 ## Framework illustration
 
-- **input**: `shape = (N, 5000, 7)`. The input tensor, a signal of 10 seconds should contain the 5000 points of the ECG tracings sampled at 500Hz both in the training and in the test set. The last dimension of the tensor contains points of the 9 different leads. The leads are ordered in the following order: `{I, II, III, AVR, AVL, AVF, V1, V3, V5}`. All signal are preprocessed with noise removal techniques before feeding it to the neural network model. 
+- **input**: `shape = (N, 5000, 7)`. The input tensor, a signal of the same timesteps should contain the same data points of the GCW tracings sampled both in the training and in the test set, include long-term trend data and short-term period data, operation environment knowledge. The long-term trend data include indices cell temperature(°C)，aluminum liquid level(mm), molecular ratio; the short-term period data include indices current density , Fe in aluminum liquid(%), Si in aluminum liquid(%),cell internal end temperature of cathode steel(°C), All signal are preprocessed with noise removal techniques before feeding it to the neural network model.
 ![example](https://github.com/jipeng08/GCWdvMSFC/blob/main/Figure/GCW%20indices%20example.png)
 - **framework illustration**: ``GCWdvMSFC.py``: Auxiliary module that defines the architecture of the deep neural network. The internal module structure is in the following files：``layers_BiLSTM-CNN.py``,``layers_Muilt-Head attention.py``,``layers_CNN with ICBAM.py``,``Layer_CRF with TransR.py``，``layers_AAW.py``.
 ![example1](https://github.com/jipeng08/GCWdvMSFC/blob/main/Figure/GCWdvMSFC.png)
