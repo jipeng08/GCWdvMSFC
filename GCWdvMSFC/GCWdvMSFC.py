@@ -24,7 +24,7 @@ def bilstm_cnn_module(input_shape):
     attention_out = LayerNormalization()(attention_out)
     return Model(inputs=input_layer, outputs=attention_out, name='BiLSTM_CNN_Module')
 
-# 2. Define ResBlock-CBAM module for short-term period features (Td)
+# 2. Define 1DCNN-ResBlock-CBAM(ICBAM) module for short-term period features (Td)
 def resblock_cbam_module(input_shape):
     input_layer = Input(shape=input_shape)
     # Initial convolution block

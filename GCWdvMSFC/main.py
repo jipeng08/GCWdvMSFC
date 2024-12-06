@@ -7,13 +7,13 @@ from tensorflow.keras.callbacks import LearningRateScheduler
 import math
 from GCWdvMSFC import GCWdvMSFC
 # Load data for training and validation
-train_input_tc = np.load('./tr_longterm_demo.npy')  # Long-term input data for training
-train_input_td = np.load('./tr_shortterm_demo.npy')  # Short-term input data for training
-train_y = np.load('./tr_label_demo.npy')  # Training labels
+train_input_tc = np.load('/GCWdvMSFC/tr_long- term_demo.npy')  # Long-term input data for training
+train_input_td = np.load('/GCWdvMSFC/tr_shortterm_demo.npy')  # Short-term input data for training
+train_y = np.load('/GCWdvMSFC/tr_label_demo.npy')  # Training labels
 
-val_input_tc = np.load('./val_longterm_demo.npy')  # Long-term input data for validation
-val_input_td = np.load('./val_shortterm_demo.npy')  # Short-term input data for validation
-val_y = np.load('./val_label_demo.npy')  # Validation labels
+val_input_tc = np.load('/GCWdvMSFC/val_longterm_demo.npy')  # Long-term input data for validation
+val_input_td = np.load('/GCWdvMSFC/val_shortterm_demo.npy')  # Short-term input data for validation
+val_y = np.load('/GCWdvMSFC/val_label_demo.npy')  # Validation labels
 
 # Convert labels to categorical
 train_y = tf.keras.utils.to_categorical(train_y, num_classes=18)
@@ -33,7 +33,7 @@ def step_decay(epoch):
     lrate = initial_lrate * math.pow(drop, math.floor((1 + epoch) / epochs_drop))
     return lrate
 
-# Create GCWdxNet model (Assume the function `gcwdxnet_module` is already defined)
+# Create GCWdxNet model
 input_tc_shape = (train_input_tc.shape[1], train_input_tc.shape[2])
 input_td_shape = (train_input_td.shape[1], train_input_td.shape[2])
 model = GCWdxnet_module(input_tc_shape, input_td_shape)

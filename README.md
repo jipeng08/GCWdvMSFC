@@ -1,5 +1,5 @@
 # GCWdvMSFC
-Scripts and modules for training and testing deep neural networks that conducts Graphitized Cathode Wear Diagnosis via Multi-Source Feature Coupling.
+Scripts and modules for training and testing deep neural networks that conducts Graphitized Cathode Wear Diagnosis via Multi-Source Feature Coupling(GCWdvMSFC).
 Companion code to the paper "Cathodes of aluminum electrolysis state diagnosis by multi-source feature coupling based deep learning integrated with environmental knowledge".
 
 <!-- https://www.xxxxxxxxx.com/
@@ -48,10 +48,10 @@ In addition, the packages we are calling now is as follows:
 
 ## Framework illustration
 
-- **input**: `shape = (N, 5000, 9)`. The input tensor, a signal of 10 seconds should contain the 5000 points of the ECG tracings sampled at 500Hz both in the training and in the test set. The last dimension of the tensor contains points of the 9 different leads. The leads are ordered in the following order: `{I, II, III, AVR, AVL, AVF, V1, V3, V5}`. All signal are preprocessed with noise removal techniques before feeding it to the neural network model. 
-![example](https://github.com/shuaih720/CHDdECG/blob/main/Figures/ECG%20example.png)
-- **framework illustration**: ``GCWdvMSFC.py``: Auxiliary module that defines the architecture of the deep neural network. The internal module structure is in the following files：``layers_BiLSTM-CNN.py``,``layers_Muilt-Head attention.py``,``layers_CNN with ICBAM.py``,``CRF with TransR.py``，``layers_AAW.py``.
-![example1](https://github.com/shuaih720/CHDdECG/blob/main/Figures/An%20illustration%20of%20the%20deep%20learning%20based%20model.png)
+- **input**: `shape = (N, 3000, 2)`. The input tensor, a signal of the same timesteps should contain the same data points of the GCW tracings sampled both in the training and in the test set, include long-term trend data and short-term period data, operation environment knowledge. The long-term trend data include indices cell temperature(°C)，aluminum liquid level(mm), molecular ratio; the short-term period data include indices current density , Fe in aluminum liquid(%), Si in aluminum liquid(%),cell internal end temperature of cathode steel(°C). The knowledge features such as operating environment parameters and expert experience are used to assist judgment.All signal are preprocessed with uniformization techniques before feeding it to the neural network model.
+![example](https://github.com/jipeng08/GCWdvMSFC/blob/main/Figure/GCW%20indices%20example.png)
+- **framework illustration**: ``GCWdvMSFC.py``: Auxiliary module that defines the architecture of the deep neural network. The internal module structure is in the following files：``layers_BiLSTM-CNN.py``,``layers_Muilt-Head attention.py``,``layers_1DCNN with ICBAM.py``,``layers_CRF with TransR.py``，``layers_AAW.py``.
+![example1](https://github.com/jipeng08/GCWdvMSFC/blob/main/Figure/GCWdvMSFC.png)
 - **train and test**: ``main.py``:Script for training the neural network and generating the neural network predictions on a given dataset.
 - **output**: `shape = (N, 2)`. Each entry contains a probability between 0 and 1, and can be understood as the probability of a given abnormality to be present.
 
@@ -71,8 +71,8 @@ python
 >>> python import.py
 >>> python layers_BiLSTM-CNN.py
 >>> python layers_Muilt-Head attention.py
->>> python layers_CNN with ICBAM.py
->>> python CRF with TransR.py
+>>> python layers_1DCNN with ICBAM.py
+>>> python layers_CRF with TransR.py
 >>> python layers_AAW.py
 >>> python GCWdvMSFC.py
 >>> python main.py

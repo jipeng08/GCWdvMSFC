@@ -5,7 +5,7 @@ from setuptools.command.install import install
 from subprocess import call, check_output
 from sys import platform
 import numpy
-REQUIRED_PACKAGES = ["tensorflow","keras","random","pandas","numpy"]
+REQUIRED_PACKAGES = ["tensorflow","keras","pykeen","rdflib","pandas","numpy"]
 PACKAGE_NAME = 'GCWdvMSFC'
 DESCRIPTION = 'Scripts and modules for training and testing deep neural networks that diagnosis of cathode wear in aluminum electrolysis cells using multi-sources feature coupling'
 AUTHOR = 'Peng Ji，Gang Yin，Zhuoman Li，Yuehan Yan，Min Wang，Junjie Zhang, Feiya Yan, Peng Zhang, Pengcheng Quan

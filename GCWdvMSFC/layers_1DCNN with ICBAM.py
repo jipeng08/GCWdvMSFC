@@ -63,7 +63,6 @@ def build_model(input_shape):
 
 
 # 8. Build the model
-# The data shape is (5000, 100, 4), so the input shape is (100, 4)
 input_shape = (data.shape[1], data.shape[2])
 model = build_model(input_shape)
 

@@ -27,8 +27,8 @@ def aaw_module(tc, td):
 
 # 2. Define model inputs
 # Inputs come directly from Tc and Td modules from the previous models
-input_tc_shape = (None, 128)  # Assuming output shape from the Tc module is (timesteps, 128)
-input_td_shape = (None, 64)  # Assuming output shape from the Td module is (timesteps, 64)
+input_tc_shape = (None, 64)
+input_td_shape = (None, 64)
 
 input_tc = Input(shape=input_tc_shape)
 input_td = Input(shape=input_td_shape)
@@ -54,9 +54,9 @@ x_train_tc = np.random.rand(y_train.shape[0], 100, 128)  # Example Tc output (co
 x_train_td = np.random.rand(y_train.shape[0], 100, 64)  # Example Td output (combine data for 3 types of labels)
 
 # Load labels for the three types of cathode wear
-labels_no_wear = np.load('/mnt/data/tr_no wear_initial_demo.npy')
-labels_steel_bar_corrosion = np.load('/mnt/data/tr_steel bar_corrosion_demo.npy')
-labels_surface_wear = np.load('/mnt/data/tr_surface wear_demo.npy')
+labels_no_wear = np.load('/GCWdvMSFC/tr_no wear_initial_demo.npy')
+labels_steel_bar_corrosion = np.load('/GCWdvMSFC/tr_steel bar_corrosion_demo.npy')
+labels_surface_wear = np.load('/GCWdvMSFC/tr_surface wear_demo.npy')
 
 # Combine labels into one array (assuming categorical labels)
 y_train = np.concatenate([labels_no_wear, labels_steel_bar_corrosion, labels_surface_wear], axis=0)

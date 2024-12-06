@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, LSTM, Bidirectional, Conv1D, Attention, Dense, GlobalAveragePooling1D
@@ -33,6 +32,14 @@ def build_model(input_shape):
     # Use Bidirectional LSTM to extract long-term features from time series data
     lstm_out = Bidirectional(LSTM(64, return_sequences=True))(input_layer)  # Output shape: (None, timesteps, 128)
 
+    # Reshape BiLSTM output to match CNN input shape
+    reshaped_lstm_out = Reshape(input_shape)(lstm_out)  # Adjust to match CNN input: (None, timesteps, features)
+
+    # Example usage
+    input_shape = (100, 32)  # Example: 100 timesteps, 32 features
+    model = build_model(input_shape)
+    model.summary()
+
     # 3. CNN layer to extract local features (Ts)
     # Use two 1D convolutional layers to extract local patterns with ReLU activation function
     cnn_out = Conv1D(64, kernel_size=3, activation='relu', padding='same')(
@@ -63,7 +70,7 @@ def build_model(input_shape):
     return model
 
 # 8. Build the model
-# The data shape is (5000, 100, 3), so the input shape is (100, 3)
+
 input_shape = (data.shape[1], data.shape[2])
 model = build_model(input_shape)
 
@@ -135,7 +142,7 @@ def build_model(input_shape):
 
 
 # 8. Build the model
-# The data shape is (5000, 100, 4), so the input shape is (100, 4)
+
 input_shape = (data.shape[1], data.shape[2])
 model = build_model(input_shape)
 
@@ -299,9 +306,9 @@ x_train_tc = np.random.rand(y_train.shape[0], 100, 128)  # Example Tc output (co
 x_train_td = np.random.rand(y_train.shape[0], 100, 64)  # Example Td output (combine data for 3 types of labels)
 
 # Load labels for the three types of cathode wear
-labels_no_wear = np.load('/mnt/data/tr_no wear_initial_demo.npy')
-labels_steel_bar_corrosion = np.load('/mnt/data/tr_steel bar_corrosion_demo.npy')
-labels_surface_wear = np.load('/mnt/data/tr_surface wear_demo.npy')
+labels_no_wear = np.load('/GCWdvMSFC/tr_no wear_initial_demo.npy')
+labels_steel_bar_corrosion = np.load('/GCWdvMSFC/tr_steel bar_corrosion_demo.npy')
+labels_surface_wear = np.load('/GCWdvMSFC/tr_surface wear_demo.npy')
 
 # Combine labels into one array (assuming categorical labels)
 y_train = np.concatenate([labels_no_wear, labels_steel_bar_corrosion, labels_surface_wear], axis=0)
@@ -466,13 +473,13 @@ from tensorflow.keras.callbacks import LearningRateScheduler
 import math
 
 # Load data for training and validation
-train_input_tc = np.load('./tr_longterm_demo.npy')  # Long-term input data for training
-train_input_td = np.load('./tr_shortterm_demo.npy')  # Short-term input data for training
-train_y = np.load('./tr_label_demo.npy')  # Training labels
+train_input_tc = np.load('/GCWdvMSFC/tr_long-term trend_demo.npy')  # Long-term input data for training
+train_input_td = np.load('/GCWdvMSFC/tr_short-term period_demo.npy')  # Short-term input data for training
+train_y = np.load('/GCWdvMSFC/tr_label_demo.npy')  # Training labels
 
-val_input_tc = np.load('./val_longterm_demo.npy')  # Long-term input data for validation
-val_input_td = np.load('./val_shortterm_demo.npy')  # Short-term input data for validation
-val_y = np.load('./val_label_demo.npy')  # Validation labels
+val_input_tc = np.load('/GCWdvMSFC/val_longterm_demo.npy')  # Long-term input data for validation
+val_input_td = np.load('/GCWdvMSFC/val_shortterm_demo.npy')  # Short-term input data for validation
+val_y = np.load('/GCWdvMSFC/val_label_demo.npy')  # Validation labels
 
 # Convert labels to categorical
 train_y = tf.keras.utils.to_categorical(train_y, num_classes=18)

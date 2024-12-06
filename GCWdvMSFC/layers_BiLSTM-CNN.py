@@ -17,6 +17,15 @@ def build_model(input_shape):
     # Use Bidirectional LSTM to extract long-term features from time series data
     lstm_out = Bidirectional(LSTM(64, return_sequences=True))(input_layer)  # Output shape: (None, timesteps, 128)
 
+
+    # Reshape BiLSTM output to match CNN input shape
+    reshaped_lstm_out = Reshape(input_shape)(lstm_out)  # Adjust to match CNN input: (None, timesteps, features)
+
+    # Example usage
+    input_shape = (100, 32)  # Example: 100 timesteps, 32 features
+    model = build_model(input_shape)
+    model.summary()
+
     # 3. CNN layer to extract local features (Ts)
     # Use two 1D convolutional layers to extract local patterns with ReLU activation function
     cnn_out = Conv1D(64, kernel_size=3, activation='relu', padding='same')(
@@ -48,7 +57,6 @@ def build_model(input_shape):
 
 
 # 8. Build the model
-# The data shape is (5000, 100, 3), so the input shape is (100, 3)
 input_shape = (data.shape[1], data.shape[2])
 model = build_model(input_shape)
 
