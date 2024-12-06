@@ -39,12 +39,11 @@ This code was tested on Python 3 with Tensorflow `2.6.0`
 In addition, the packages we are calling now is as follows:
 - [x] tensorflow2.0     
 - [x] sklearn
-- [x] random
-- [x] scipy
+- [x] rdflib
 - [x] pandas
 - [x] numpy
-- [x] tabnet
-- [x] tensorflow_addons  
+- [x] pykeen
+- [x] tensorflow_keras 
 
 ## Framework illustration
 
